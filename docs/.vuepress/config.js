@@ -87,7 +87,7 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD) {
   return [{
       title: groupA,
       collapsable: false,
-      children: ['/about/basics/事件流', '/about/basics/闭包', '/about/brower/事件循环', '/about/basics/arguments']
+      children: ['/about/basics/事件流', '/about/basics/闭包','/about/basics/异步', '/about/brower/事件循环', '/about/basics/arguments']
     },
     {
       title: groupB,
