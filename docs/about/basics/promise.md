@@ -112,3 +112,29 @@ script end
 fn end
 
 ```
+
+
+### 场景题分析 
+
+```
+async function fn(){
+    return 100
+}
+
+(async function(){
+    const a  = fn();//a的值为 Promise.resolve(100)
+    const b  = await fn();// b的值为100，await是promise.resolve的回调
+})()
+```
+
+```
+(async function(){
+    console.log('start')
+    const a = await 100
+    console.log(a) // a的值为100 
+    const b = await Promise.resolve(200)
+    console.log(b) // b的值为200
+    const c = await Promise.reject(300) //此时会报错因为c是 Promise.resolve()的回调，此时拿不到reject的值，需要使用try catch不然报错。执行不下去了
+    console.log(c) 
+})()
+```
