@@ -124,7 +124,7 @@ async function fn(){
 (async function(){
     const a  = fn();//a的值为 Promise.resolve(100)
     const b  = await fn();// b的值为100，await是promise.resolve的回调
-})()
+})()    
 ```
 
 ```

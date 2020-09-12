@@ -31,8 +31,12 @@ module.exports = {
             link: '/'
           },
           {
-            text: '笔记',
+            text: 'js基础',
             link: '/about/basics/事件流'
+          },
+          {
+            text: 'vue',
+            link: '/about/vue/生命周期'
           },
           {
             text: '项目',
@@ -102,7 +106,7 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD) {
     {
       title: groupD,
       collapsable: true,
-      children: ['/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染']
+      children: ['/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/虚拟DOM']
     },
   ]
 }
