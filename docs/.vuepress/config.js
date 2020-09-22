@@ -39,6 +39,10 @@ module.exports = {
             link: '/about/vue/生命周期'
           },
           {
+            text: '常见考点',
+            link: '/about/question/vue'
+          },
+          {
             text: '项目',
             items: [{
                 text: '去哪儿旅行',
@@ -63,6 +67,7 @@ module.exports = {
             'HTML',
             'CSS',
             'VUE基础',
+            '常见考点',
           )
         }
       },
@@ -87,11 +92,11 @@ module.exports = {
 }
 
 
-function getBasicsSidebar(groupA, groupB, groupC, groupD) {
+function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE) {
   return [{
       title: groupA,
       collapsable: false,
-      children: ['/about/basics/事件流', '/about/basics/闭包','/about/basics/异步', '/about/brower/事件循环', '/about/basics/arguments','/about/basics/promise']
+      children: ['/about/basics/事件流','/about/basics/数据类型', '/about/basics/闭包','/about/basics/异步', '/about/brower/事件循环', '/about/basics/arguments','/about/basics/promise']
     },
     {
       title: groupB,
@@ -106,7 +111,12 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD) {
     {
       title: groupD,
       collapsable: true,
-      children: ['/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/虚拟DOM']
+      children: ['/about/vue/路由原理','/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/响应式observe','/about/vue/虚拟DOM','/about/vue/模版渲染','/about/vue/组件通信','/about/vue/vue3']
+    },
+    {
+      title: groupE,
+      collapsable: true,
+      children: ['/about/question/vue',]
     },
   ]
 }
