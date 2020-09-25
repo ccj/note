@@ -43,6 +43,10 @@ module.exports = {
             link: '/about/question/vue'
           },
           {
+            text: '性能优化',
+            link: '/about/nature/节流防抖'
+          },
+          {
             text: '项目',
             items: [{
                 text: '去哪儿旅行',
@@ -71,6 +75,7 @@ module.exports = {
             'Wepback',
             'Http',
             '常见考点',
+            '性能优化',
           )
         }
       },
@@ -95,7 +100,7 @@ module.exports = {
 }
 
 
-function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG) {
+function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG,groupH,groupI) {
   return [{
       title: groupA,
       collapsable: false,
@@ -130,6 +135,16 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG) 
       title: groupG,
       collapsable: true,
       children: ['/about/http/缓存',]
+    },
+    {
+      title: groupH,
+      collapsable: true,
+      children: ['/about/question/vue','/about/question/js']
+    },
+    {
+      title: groupI,
+      collapsable: true,
+      children: ['/about/nature/节流防抖',]
     }
   ]
 }
