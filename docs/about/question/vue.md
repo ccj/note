@@ -172,6 +172,9 @@ o(n3次方) 降低到O(n) 并描述diff算法过程
 
 ## v-for为什么不能和v-if一起使用？
     因为在代码执行的时候，v-if会优先执行 每次循环都会进行一次 v-if的判断很浪费性能。所以v-if和v-for同时存在时候。vue会报错。
+    正确应该在v-for外层嵌套div进行v-for的判断。
+    如果一个list内部的某些flag需要判断应该如何做，可以通过computed把需要展示的数据做过滤。
+    避免list循环内部v-if的判断。
 
 ```
     <div v-for="item in list" v-if="">

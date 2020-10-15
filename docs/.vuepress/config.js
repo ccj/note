@@ -104,7 +104,7 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG,g
   return [{
       title: groupA,
       collapsable: false,
-      children: ['/about/basics/事件流','/about/basics/数据类型','/about/basics/new的过程','/about/basics/原型链', '/about/basics/闭包','/about/basics/异步', '/about/brower/事件循环', '/about/basics/arguments','/about/basics/promise']
+      children: ['/about/basics/事件流','/about/basics/数据类型','/about/basics/new的过程','/about/basics/原型链', '/about/basics/闭包','/about/basics/异步', '/about/brower/事件循环', '/about/basics/arguments','/about/basics/promise','/about/basics/ts学习']
     },
     {
       title: groupB,
@@ -119,7 +119,7 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG,g
     {
       title: groupD,
       collapsable: true,
-      children: ['/about/vue/路由原理','/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/响应式observe','/about/vue/虚拟DOM','/about/vue/模版渲染','/about/vue/组件通信','/about/vue/vue3']
+      children: ['/about/vue/watch实现','/about/vue/路由原理','/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/响应式observe','/about/vue/虚拟DOM','/about/vue/模版渲染','/about/vue/组件通信','/about/vue/vue3']
     },
     {
       title: groupE,
