@@ -144,7 +144,7 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG,g
     {
       title: groupI,
       collapsable: true,
-      children: ['/about/nature/节流防抖',]
+      children: ['/about/nature/节流防抖','/about/nature/性能优化总结']
     }
   ]
 }
