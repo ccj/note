@@ -1,9 +1,10 @@
 # vue-expressdemo
+
 ## Development
 
 ```bash
 # clone the project
-git clone https://github.com/251205668/vuepressdemo.git
+git clone https://github.com/zhaohongwei978/note.git
 
 # install dependency
 npm install

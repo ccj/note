@@ -1,7 +1,9 @@
-# js问题
+# js 问题
 
-## Oject.assign的浅拷贝问题？
+## Oject.assign 的浅拷贝问题？
+
 Object.assign 只能拷贝第一层。
+
 ```
 let a = {a:1,b:2}
 let b= {c:3,d:{name:'kira'}};
@@ -19,17 +21,17 @@ console.log(obj);//修改name时候，发现obj被改变了。
 c
 ```
 
-## requestAnimationFrame对比setTimeOut
+## requestAnimationFrame 对比 setTimeOut
 
-- 没有办法保证，回调函数一定会在setTimeout()指定的时间执行。
-- 把浏览器切换到后台，setTimeOut还会一直执行。
+- 没有办法保证，回调函数一定会在 setTimeout()指定的时间执行。
+- 把浏览器切换到后台，setTimeOut 还会一直执行。
 - 在页面渲染结束后才会开始执行。
 - requestAnimationFrame 执行时机早，在重绘阶段 就开始执行了。
-- 动画更加流畅 60帧/s，既16.67ms更新一次视图。这个时机是符合人眼的。频率是自己定的
-- setTimeOut手动设置多少毫秒增加多少像素，requestAnimationFrame自动控制.
-setTimeOut手动设置时间来执行，如果手动设置setTimeOut(fn,0)执行代码前等待的毫秒数为0，但并不是立即执行的，这是因为setTimeout有一个最小执行时间。
+- 动画更加流畅 60 帧/s，既 16.67ms 更新一次视图。这个时机是符合人眼的。频率是自己定的
+- setTimeOut 手动设置多少毫秒增加多少像素，requestAnimationFrame 自动控制.
+  setTimeOut 手动设置时间来执行，如果手动设置 setTimeOut(fn,0)执行代码前等待的毫秒数为 0，但并不是立即执行的，这是因为 setTimeout 有一个最小执行时间。
 
-HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔）不得低于4毫秒。实际上可能为 4毫秒后才事件推入任务队列。如果此时主线程不为空，也不会读取推出异步队列的setTimeOut.
+HTML5 标准规定了 setTimeout()的第二个参数的最小值（最短间隔）不得低于 4 毫秒。实际上可能为 4 毫秒后才事件推入任务队列。如果此时主线程不为空，也不会读取推出异步队列的 setTimeOut.
 
 执行效率问题
 
@@ -64,7 +66,7 @@ animate();
 
 - 区别:DocumentFragment 不是真实 DOM 树的一部分，它的变化不会触发 DOM 树的重新渲染，且不会导致性能等问题。
 
-DocumentFragment节点代表一个文档的片段，本身是一个完整的DOM树结构。它没有父节点，不属于Document。但是可以插入任意数量的子节点。但是它不属于当前文档。比直接操作DOM树快。
+DocumentFragment 节点代表一个文档的片段，本身是一个完整的 DOM 树结构。它没有父节点，不属于 Document。但是可以插入任意数量的子节点。但是它不属于当前文档。比直接操作 DOM 树快。
 
 ```
 //简单使用
@@ -78,11 +80,11 @@ carDetail.carInfo.map(item => {
 carInfoEl.appendChild(fragment) //把fragement添加到真实DOM上。
 ```
 
-
-
 ## 在前端如何处理几万条数据的情况？
-通过使用DocumentFragement。存储每次要插入的文档。
-使用requestAnimationFragement动态 在真实DOM上添加 fragement。
+
+通过使用 DocumentFragement。存储每次要插入的文档。
+使用 requestAnimationFragement 动态 在真实 DOM 上添加 fragement。
+
 ```
     setTimeout(() => {
     // 插入十万条数据
@@ -113,4 +115,42 @@ carInfoEl.appendChild(fragment) //把fragement添加到真实DOM上。
     loop();
     }, 0)
 
+```
+
+## romise 状态不能被二次改变问题
+
+```
+new Promise(function(resolve,reject){
+    resoleve()
+    throw Error('error')
+}).then(function(){
+    console.log('resolve')
+}).catch(function(){
+    console.log('err')
+})
+//打印结果 resolve
+throw Error 并不会触发 catch 的执行
+```
+
+## 原型链问题
+
+此题考察的是对原型链继承关系的理解，和对 new 的认识。
+
+```
+Object.prototype.a = function(){
+    console.log('object')
+}
+Function.prototype.a = function(){
+    consoloe.log('function')
+}
+function A(){
+
+}
+
+let a = new A();
+a.a(); // 打印结果是 object，找的是Object上的a
+因为 我们new A();首先a会在 构造函数上找，构造函数上找不到。
+new的过程 
+1创建空对象{}
+2把a的原型链指向Object
 ```

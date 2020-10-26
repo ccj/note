@@ -22,13 +22,78 @@
 //     console.log('更新视图')
 // }
 
+//
+// const arr = [1, 20, 10, 30, 22, 11, 55, 24, 31, 88, 12, 100, 50];
+// function bubbleSort(arr){
+//     for(let i = 0; i < arr.length - 1; i++){
+//         for(let j = 0; j < arr.length - i - 1; j++){
+//             if(arr[j] > arr[j + 1]){
+//                 swap(arr, j, j+1);
+//             }
+//         }
+//     }
+//     return arr;
+// }
+//
+// function swap(arr, i, j){
+//     let temp = arr[i];
+//     arr[i] = arr[j];
+//     arr[j] = temp;
+// }
+// console.log(arr);
 
-function a(a,b){
-    console.log(arguments);
-}
-let test = ()=>{
-    console.log(arguments )
-}
-a(1,2);
+//
+// const arr = [30, 32, 6, 24, 37, 32, 45, 21, 38, 23, 47];
+//
+// function quickSort(arr){
+//     if(arr.length <= 1){
+//         return arr;
+//     }
+//     let temp = arr[0];
+//     const left = [];
+//     const right = [];
+//     for(var i = 1; i < arr.length; i++){
+//         if(arr[i] > temp){
+//             right.push(arr[i]);
+//             console.log('--right',right)
+//         }else{
+//             left.push(arr[i]);
+//             console.log('--left',left)
+//         }
+//     }
+//     return quickSort(left).concat([temp], quickSort(right));
+// }
+//
+// console.log(quickSort(arr));
 
 
+// function Insertion(arr) {
+//     let len = arr.length;
+//     let preIndex, current;
+//     for (let i = 1; i < len; i++) {
+//         console.log('----i',i)
+//         preIndex = i - 1;
+//         current = arr[i];
+//         while (preIndex >= 0 && current < arr[preIndex]) {
+//             console.log('---arr[preIndex',arr[preIndex])
+//             arr[preIndex + 1] = arr[preIndex];
+//             preIndex--;
+//         }
+//         arr[preIndex + 1] = current;
+//     }
+//     return arr;
+// }
+//
+//
+// var arr = [3,5,7,1,4,56,12,78,25,0,9,8,42,37];
+// console.log(Insertion(arr));
+
+// new Promise(function (resolve,reject) {
+//  resolve('111')
+//
+// }).then(function (res) {
+//          setTimeout(function () {
+//          })
+// }).catch(function () {
+//             console.log('11111111')
+// });
