@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = { 
   title: 'Kira技术博客',
   description: ' ',
   locales: {
