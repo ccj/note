@@ -97,3 +97,9 @@
 // }).catch(function () {
 //             console.log('11111111')
 // });
+
+const myArray = ['11','22'];
+myArray.name = {name:'kira'}
+for(var index of myArray){
+    console.log(typeof index);
+}

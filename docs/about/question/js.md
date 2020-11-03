@@ -117,7 +117,7 @@ carInfoEl.appendChild(fragment) //把fragement添加到真实DOM上。
 
 ```
 
-## romise 状态不能被二次改变问题
+## Promise 状态不能被二次改变问题
 
 ```
 new Promise(function(resolve,reject){
@@ -154,3 +154,12 @@ new的过程
 1创建空对象{}
 2把a的原型链指向Object
 ```
+
+
+## for in 对比 for of
+
+### for-in是为普通对象设计的
+
+
+
+### for-of 遍历数组更加方便

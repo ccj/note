@@ -114,12 +114,12 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG,g
     {
       title: groupC,
       collapsable: true,
-      children: []
+      children: ['/about/css/盒子模型']
     },
     {
       title: groupD,
       collapsable: true,
-      children: ['/about/vue/watch实现','/about/vue/nextTick','/about/vue/路由原理','/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/响应式observe','/about/vue/虚拟DOM','/about/vue/模版渲染','/about/vue/组件通信','/about/vue/vue3']
+      children: ['/about/vue/newVue时候都做了什么','/about/vue/vue实例挂载','/about/vue/render函数','/about/vue/watch实现','/about/vue/nextTick','/about/vue/路由原理','/about/vue/生命周期', '/about/vue/自定义model', '/about/vue/异步渲染','/about/vue/响应式observe','/about/vue/虚拟DOM','/about/vue/模版渲染','/about/vue/组件通信','/about/vue/vue3']
     },
     {
       title: groupE,
