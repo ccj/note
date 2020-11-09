@@ -97,9 +97,41 @@
 // }).catch(function () {
 //             console.log('11111111')
 // });
+//
 
-const myArray = ['11','22'];
-myArray.name = {name:'kira'}
-for(var index of myArray){
-    console.log(typeof index);
+let has = {};
+let queue = [];
+let waiting = false;
+
+function Weather(ids) {
 }
+
+let weather1 = new Weather(1)
+weather1.id = 1;
+let weather2 = new Weather(1)
+weather2.id = 2;
+let weather3 = new Weather(1)
+weather3.id = 1;
+
+
+function queueWatcher (watcher) {
+    const id = watcher.id
+    console.log('currentId',id)
+    console.log('has[id]',has[id] == null)
+    if (has[id] == null) {
+        has[id] = true
+        console.log('-----has',has)
+        queue.push(watcher)
+        console.log('====queue',queue)
+        // ...
+        if (!waiting) {
+            waiting = true
+            // ...
+            console.log('----异步更新')
+        }
+    }
+}
+
+queueWatcher(weather1)
+queueWatcher(weather2)
+queueWatcher(weather3)
