@@ -1,5 +1,69 @@
 # js 问题
 
+## underfind 和 null 的区别?
+
+JavaScript 语言居然有两个表示"无"的值：undefined 和 null。
+最初设计
+
+- null 是一个表示"无"的对象，转为数值时为 0；
+  // Number(null) 0
+- undefined 是一个表示"无"的原始值，转为数值时为 NaN。
+  // Number(undefined)
+
+### null 和 underfind 目前的用法
+
+null 表示"没有对象"，即该处不应该有值。
+undefined 表示"缺少值"，就是此处应该有一个值，但是还没有定义。
+
+- 1 变量被声明了，但没有赋值时，就等于 undefined。
+- 2 调用函数时，应该提供的参数没有提供，该参数等于 undefined。
+- 3 对象没有赋值的属性，该属性的值为 undefined。
+- 4 函数没有返回值时，默认返回 undefined。
+
+这样判断一个值是否存在，就可以用
+objA.valueA === undefined // 不应使用 null 因为 undefined == null，而 null 表示该值定义为空值。
+
+```
+underfind === null // false
+typeof underfind //underdind
+typeof null //object
+```
+
+### JavaScript 中包含 6 种数据类型？
+
+5 种基本数据类型 1 个复杂数据类型
+
+- underfind
+- null
+- string
+- number
+- boolean
+- object
+
+### 清除浮动的写法
+
+- 1 overfow:hidden
+- 2 元素末尾追加 div.style="clear:both"
+- 3 通过伪类
+
+```
+.clearfix::after{
+    content:'' //伪元素内容 为''让伪元素不显示
+    //clear属性只能在块级元素上其作用，这就是清除浮动样式中display:block的作用。
+    display:'block',
+    height:0让元素高度为0并且不显示
+    clear:both;//清除浮动
+    visiblity:hidden;//让元素渲染但是不显示
+    clear:both;//清除浮动
+}
+```
+
+```
+清除浮动作用
+
+1:解决子元素浮动父元素高度塌陷的问题
+```
+
 ## Oject.assign 的浅拷贝问题？
 
 Object.assign 只能拷贝第一层。
@@ -20,6 +84,11 @@ console.log(obj);//修改name时候，发现obj被改变了。
 //{ a: 1, b: 2, c: 3, d: { name: 'test' } }
 c
 ```
+
+## js 实现一个单例模式
+
+思路：保证一个类只有一个对象，一般先判断对象是否存在，如果存在直接返回该对象。如果不存在，创建对象并返回。
+比如后台的 jdbc 连接就是典型的单例，防止每次使用 sql 都要创建 sql 连接对象。
 
 ## requestAnimationFrame 对比 setTimeOut
 
@@ -150,16 +219,13 @@ function A(){
 let a = new A();
 a.a(); // 打印结果是 object，找的是Object上的a
 因为 我们new A();首先a会在 构造函数上找，构造函数上找不到。
-new的过程 
+new的过程
 1创建空对象{}
 2把a的原型链指向Object
 ```
 
-
 ## for in 对比 for of
 
-### for-in是为普通对象设计的
-
-
+### for-in 是为普通对象设计的
 
 ### for-of 遍历数组更加方便

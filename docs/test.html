@@ -6,13 +6,32 @@
     <title>Document</title>
 </head>
 <body>
-    <div style="font-size: 20px;">20px</div>
-    <div style="font-size: 12px;">12px</div>
-    <div style="font-size: 10px;">10px</div>
-    <div>
-        <span style="width: 300px;display: inline-block;background-color: blue;transform: scale(0.1);">span1</span>
-         <span style="width: 300px;display: inline-block;background-color:pink;">span2</span>
+    <style>
+        .container{
+            border: 2px solid #111;
+
+        }
+        .container::before{
+            content: 'after伪元素';
+            display: block;
+            clear: both;
+        }
+
+        .left{
+            width: 200px;
+            background-color: red;
+            float: left;
+        }
+        .right{
+            width: 200px;
+            background-color: green;
+            float: left;
+        }
+    </style>
+    <div class="container clearfix">
+        <div class="left">111</div>
+        <div class="right">111</div>
+        <!-- <div style="clear: both;"></div> -->
     </div>
-    <div style="font-size: 8px;background-color: red;"><span style="background-color: yellow;display: inline-block;transform: scale(0.5);">8px</span></div>
 </body>
 </html>
