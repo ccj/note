@@ -13,7 +13,7 @@ JavaScript 语言居然有两个表示"无"的值：undefined 和 null。
 ### null 和 underfind 目前的用法
 
 null 表示"没有对象"，即该处不应该有值。
-undefined 表示"缺少值"，就是此处应该有一个值，但是还没有定义。
+undefined 表示"缺少值"，就是此处应该有一个值，但是还没有定义。 
 
 - 1 变量被声明了，但没有赋值时，就等于 undefined。
 - 2 调用函数时，应该提供的参数没有提供，该参数等于 undefined。
@@ -63,6 +63,122 @@ typeof null //object
 
 1:解决子元素浮动父元素高度塌陷的问题
 ```
+
+## 1px不精准问题？
+
+现象，在高清屏下，移动端的1px 会很粗。
+### 为什么会出现1px不精准？
+DPR(devicePixelRatio) 设备像素比，它是默认缩放为100%的情况下，设备像素和CSS像素的比值。
+
+目前主流的屏幕DPR=2 （iPhone 8）,或者3 （iPhone 8 Plus）。拿2倍屏来说，设备的物理像素要实现1像素，而DPR=2，所以css 像素只能是 0.5。一般设计稿是按照750来设计的，它上面的1px是以750来参照的，而我们写css样式是以设备375为参照的，所以我们应该写的0.5px就好了啊！ 试过了就知道，iOS 8+系统支持，安卓系统不支持。
+
+- window.devicePixelRatio=物理像素 /CSS像素
+### 方法1 通过border-img
+```angular2
+  border: 1px solid transparent;
+  border-image: url('./../../image/96.jpg') 2 repeat;
+```
+### 方法2 使用box-shadow实现
+
+仔细看,能看出这是阴影不是边框。
+```angular2
+box-shadow: x偏移量 y偏移量 偏移半径 颜色;
+box-shadow: 0  -1px 1px -1px #e5e5e5,   //上边线
+            1px  0  1px -1px #e5e5e5,   //右边线
+            0  1px  1px -1px #e5e5e5,   //下边线
+            -1px 0  1px -1px #e5e5e5;   //左边线
+```
+### 方法3 在伪元素中定位，通过transform缩放
+
+```angular2
+setOnePx{
+  position: relative;
+  &::after{
+    position: absolute;
+    content: '';
+    background-color: #e5e5e5;
+    display: block;
+    width: 100%;
+    height: 1px; /*no*/
+    transform: scale(1, 0.5);
+    top: 0;
+    left: 0;
+  }
+}
+```
+
+### 设置viewport的scale值
+```angular2
+<meta name="viewport" id="WebViewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<script>
+          var viewport = document.querySelector("meta[name=viewport]");
+          //下面是根据设备像素设置viewport
+          if (window.devicePixelRatio == 1) {
+              viewport.setAttribute('content', 'width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
+          }
+          if (window.devicePixelRatio == 2) {
+              viewport.setAttribute('content', 'width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no');
+          }
+          if (window.devicePixelRatio == 3) {
+              viewport.setAttribute('content', 'width=device-width,initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no');
+          }
+          var docEl = document.documentElement;
+          var fontsize = 32* (docEl.clientWidth / 750) + 'px';
+          docEl.style.fontSize = fontsize;
+      </script>
+```
+
+
+## 前端性能监控？
+- 通过performance API 包含了页面加载的各个阶段的起始时间
+- window.performance
+
+- 打印window.performance.timing
+```angular2
+    timing: {
+        navigationStart: 同一个浏览器上一个页面卸载(unload)结束时的时间戳。如果没有上一个页面，这个值会和fetchStart相同。
+        unloadEventStart: 上一个页面unload事件抛出时的时间戳。如果没有上一个页面，这个值会返回0。
+        unloadEventEnd: 和 unloadEventStart 相对应，unload事件处理完成时的时间戳。如果没有上一个页面,这个值会返回0。
+        redirectStart: 第一个HTTP重定向开始时的时间戳。如果没有重定向，或者重定向中的一个不同源，这个值会返回0。
+        redirectEnd: 最后一个HTTP重定向完成时（也就是说是HTTP响应的最后一个比特直接被收到的时间）的时间戳。如果没有重定向，或者重定向中的一个不同源，这个值会返回0. 
+        fetchStart: 浏览器准备好使用HTTP请求来获取(fetch)文档的时间戳。这个时间点会在检查任何应用缓存之前。
+        domainLookupStart: DNS 域名查询开始的UNIX时间戳,如果使用了持续连接(persistent connection)，或者这个信息存储到了缓存或者本地资源上，这个值将和fetchStart一致。
+        domainLookupEnd: DNS 域名查询完成的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等
+        connectStart: HTTP（TCP） 域名查询结束的时间戳，如果使用了持续连接(persistent connection)，或者这个信息存储到了缓存或者本地资源上，这个值将和 fetchStart一致。
+        connectEnd: HTTP（TCP） 返回浏览器与服务器之间的连接建立时的时间戳，如果建立的是持久连接，则返回值等同于fetchStart属性的值。连接建立指的是所有握手和认证过程全部结束。
+        secureConnectionStart: HTTPS 返回浏览器与服务器开始安全链接的握手时的时间戳。如果当前网页不要求安全连接，则返回0。
+        requestStart: 返回浏览器向服务器发出HTTP请求时（或开始读取本地缓存时）的时间戳。
+        responseStart: 返回浏览器从服务器收到（或从本地缓存读取）第一个字节时的时间戳，如果传输层在开始请求之后失败并且连接被重开，该属性将会被数制成新的请求的相对应的发起时间。
+        responseEnd: 返回浏览器从服务器收到（或从本地缓存读取，或从本地资源读取）最后一个字节时（如果在此之前HTTP连接已经关闭，则返回关闭时）的时间戳。
+        domLoading: 当前网页DOM结构开始解析时（即Document.readyState属性变为“loading”、相应的 readystatechange事件触发时）的时间戳。
+        domInteractive: 当前网页DOM结构结束解析、开始加载内嵌资源时（即Document.readyState属性变为“interactive”、相应的readystatechange事件触发时）的时间戳。
+        domContentLoadedEventStart: 当解析器发送DOMContentLoaded 事件，即所有需要被执行的脚本已经被解析时的时间戳。
+        domContentLoadedEventEnd: 当所有需要立即执行的脚本已经被执行（不论执行顺序）时的时间戳。
+        domComplete: 当前文档解析完成，即Document.readyState 变为 'complete'且相对应的readystatechange 被触发时的时间戳
+        loadEventStart: load事件被发送时的时间戳。如果这个事件还未被发送，它的值将会是0。
+        loadEventEnd: 当load事件结束，即加载事件完成时的时间戳。如果这个事件还未被发送，或者尚未完成，它的值将会是0。
+}
+```
+```angular2
+// 重定向耗时
+redirect: timing.redirectEnd - timing.redirectStart,
+// DOM 渲染耗时
+dom: timing.domComplete - timing.domLoading,
+// 页面加载耗时
+load: timing.loadEventEnd - timing.navigationStart,
+// 页面卸载耗时
+unload: timing.unloadEventEnd - timing.unloadEventStart,
+// 请求耗时
+request: timing.responseEnd - timing.requestStart,
+// 获取性能信息时当前时间
+time: new Date().getTime(),
+
+//白屏时间指从输入网址，到页面开始显示内容的时间。
+<script>
+    let whiteScreen = new Date() - performance.timing.navigationStart
+</script>
+```
+
 
 ## Oject.assign 的浅拷贝问题？
 

@@ -1,26 +1,239 @@
 # promise
 
 
-promise 只有在padding状态才能改变状态，一旦promise的状态被改变就不可以在改变。
+## promise 实现思路
 
-## then 和 catch 改变状态
+
+### 步骤一 简单版本
+- new Promise 时候 让excutor执行，传如一个成功resolve方法，一个reject方法。
+- 通过这两个方法改变，reason和val的值。和padding的状态。
+- padding状态只能改变一次。
+```angular2
+const PADDING = 'PADDING';
+const RESOLVE = 'RESOLVE';
+const REJECT = 'REJECT';
+
+class promise{
+    constructor(executor){
+        this.status = PADDING;
+        this.val  = '';
+        this.reason = '';
+
+        let resolve = (val)=>{
+            if(this.status === PADDING){
+                this.status = RESOLVE;
+                this.val = val
+            }
+        };
+
+        let reject = (reason)=>{
+            if(this.status === PADDING){
+                this.status = REJECT;
+                this.reason = reason
+            }
+        };
+        try {
+            executor(resolve,reject)// new时调
+        }catch (e) {
+            reject(e)
+        }
+    }
+    then(onFulfilled,onRejected){
+        //同步
+        if(this.status === RESOLVE){
+            onFulfilled(this.val)
+        }
+        if(this.status === REJECT){
+            onRejected(this.reason)
+        }
+    }
+}
+```
+## 步骤二 发布订阅模式（异步的场景）
+- 通过setTimeOut(function(){ resolve('success') })模拟异步，此时的then方法中status状态为 padding。
+- 通过发布订阅的模式，把成功的回调和失败的回调分别放在各自数组中。
+
+```angular2
+class myPromise {
+        constructor(executor) {
+            this.status = PADDING;
+            this.val = undefined;//成功原因
+            this.reason = undefined;
+            this.onResolveCallbacks = [];//成功回调数组
+            this.onRejectcallbacks = [];//失败回调数组
+            //成功函数
+            let resolve = (val)=>{
+               if(this.status === PADDING){
+                   this.val = val;
+                   this.status = RESOLVE;
+                   this.onResolveCallbacks.forEach( fn=>{ fn() })
+               }
+            };
+            //失败函数
+            let reject = (reason)=>{
+                if(this.status === PADDING){
+                    this.reason = reason;
+                    this.status = REJECT;
+                    this.onRejectcallbacks.forEach( fn=>{ fn() })
+                }
+            };
+
+            try {
+                executor(resolve,reject); //new时候执行
+            }catch(error)
+            {
+                reject(error)
+
+            }
+        }
+    then(onFulfilled,onRejected){
+        //同步的情况
+        if(this.status === RESOLVE){
+            onFulfilled(this.val)
+        }
+        if(this.status === REJECT){
+            onFulfilled(this.reason)
+        }
+        console.log('----this.status-',this.status)
+        //异步的情况 利用发布订阅
+        if(this.status === PADDING){
+            //异步先订阅号数据
+            this.onResolveCallbacks.push(()=>{
+                onFulfilled(this.val)
+            });
+            console.log('------this.onResolveCallbacks',this.onResolveCallbacks)
+            this.onRejectcallbacks.push(()=>{
+                onRejected(this.reason)
+            });
+        }
+    }
+}
+```
+### 步骤三 链式调用
+- 下一个回调是否调用，依赖于上一个promise的返回结果（成功或失败）。
+- 假设如果返回underfind则也会相当于一个成功的promise。
+- 假设如果返回throw Error则会返回失败的promise。
+- 假设如果return new Promise(function(){})返回空的promise则可以不走成功或者失败的回调，返回一个padding的Promise.
+- 每次执行promise都会返回一个新的promise。
+
+
+
+- 根据上一个promise的返回结果x，如果x是一个promise调用then。
+- 如果x是一个普通的值或者underfind则返回promise一个新的promise。
+```
+
+const PADDING = 'PADDING';
+const RESOLVE = 'RESOLVE';
+const REJECT = 'REJECT';
+
+/**
+ * new Promise 时候 让excutor执行，传如一个成功resolve方法，一个reject方法。通过这两个方法改变，reason和val的值。和padding的状态。
+ * 状态发生变化后不能改变。
+ *
+ * promise 链式回调实现方式， 发布订阅。
+ */
+
+const resolvePromise = (promise2,x,resolve,reject)=>{
+
+}
+class myPromise {
+        constructor(executor) {
+            this.status = PADDING;
+            this.val = undefined;//成功原因
+            this.reason = undefined;
+            this.onResolveCallbacks = [];//成功回调数组
+            this.onRejectcallbacks = [];//失败回调数组
+            //成功函数
+            let resolve = (val)=>{
+               if(this.status === PADDING){
+                   this.val = val;
+                   this.status = RESOLVE;
+                   this.onResolveCallbacks.forEach( fn=>{ fn() })
+               }
+            };
+            //失败函数
+            let reject = (reason)=>{
+                if(this.status === PADDING){
+                    this.reason = reason;
+                    this.status = REJECT;
+                    this.onRejectcallbacks.forEach( fn=>{ fn() })
+                }
+            };
+
+            try {
+                executor(resolve,reject); //new时候执行
+            }catch(error)
+            {
+                reject(error)
+
+            }
+        }
+
+    /**
+     * 根据返回值判断then的处理逻辑
+     * 1 如果返回promise接着往下执行
+     * 2 如果返回成功的promise执行onFulfilled
+     * 3 如果返回失败的promise执行onRejected
+     * 4 根据上一次返回的值，判断promise2的状态
+     * @param onFulfilled
+     * @param onRejected
+     */
+    then(onFulfilled,onRejected){
+        let promise2 = new Promise(((resolve, reject) => {
+            //同步的情况
+            if(this.status === RESOLVE){
+                /**
+                 * 根据x的值 推导promise2的状态
+                 * x可能是普通值
+                 * x也可能是promise，接着调用then
+                 */
+               setTimeout(function () {
+                   let x = onFulfilled(this.val);
+                   resolvePromise(promise2,x,resolve,reject)
+               },0)
+            }
+            if(this.status === REJECT){
+                let x = onFulfilled(this.reason)
+            }
+            console.log('----this.status-',this.status)
+            //异步的情况 利用发布订阅
+            if(this.status === PADDING){
+                //异步先订阅号数据
+                this.onResolveCallbacks.push(()=>{
+                    let x = onFulfilled(this.val)
+                });
+                console.log('------this.onResolveCallbacks',this.onResolveCallbacks)
+                this.onRejectcallbacks.push(()=>{
+                    let x = onRejected(this.reason)
+                });
+            }
+        }));
+    }
+}
+
+module.exports = myPromise
+
+```
+
+## promise练习题
 
 - then 正常返回 resolved，里面有报错则返回 rejected。
 - catch 正常返回 resolved, 里面有报错则返回 rejected。
 
 ```
-
+题目1
 const p2 = Promise.resolve().then(()=>{
     throw new Error('error') //会返回rejectred的promise，之后的回调是then
 });
 
-
+题目2
 const p3 = Promise.reject('111').catch(()=>{
     console.log('catch');// reject执行完调用catch，catch会返回一个成功的promise，之后可以调用 then
 }).then(()=>{
     console.log('111')//
 })
 
+题目3
 //打印结果 1  2 3
 Promise.resolve().then(()=>{
     console.log(1);
