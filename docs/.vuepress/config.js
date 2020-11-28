@@ -31,6 +31,10 @@ module.exports = {
             link: '/'
           },
           {
+            text: '项目经历',
+            link: '/about/project/项目总结'
+          },
+          {
             text: 'js基础',
             link: '/about/basics/事件流'
           },
