@@ -247,7 +247,17 @@ function animate()
 animate();
 ```
 
+
+## AMD和CMD的区别？
+
+- AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。
+- CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。
+
+- 1 对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。
+- 2 CMD 推崇依赖就近，AMD 推崇依赖前置。
+
 ## DocumentFragement VS Document
+for in 对比 for of
 
 - 区别:DocumentFragment 不是真实 DOM 树的一部分，它的变化不会触发 DOM 树的重新渲染，且不会导致性能等问题。
 
@@ -339,6 +349,48 @@ new的过程
 1创建空对象{}
 2把a的原型链指向Object
 ```
+
+## js模块的导出和引入
+
+- 1 在js模块中通过import导入其他文件import xxx from '路径地址'
+- 2 导出分为两种导出方式export和export default
+
+export具名导出
+
+
+```angular2
+//文件1
+//第一个js文件
+这种导出方式在导入的时候名字必须与导出名字一致，并且导出多个数据的时候必须写成对象的形式，然后我们在第二个js文件中通过下面代码导入第一个js文件
+var name = "名字";
+function fun(){
+    alert("肉弹葱鸡")
+}
+export {name,fun}
+
+//第二个js文件
+import {name,fun} from '第一个js文件路径'
+```
+
+export default（匿名导出）
+
+匿名导出只能导出一次。
+```angular2
+class Person{
+    constructor(name){
+        this.name = name;
+    }
+    say(){
+        alert(this.name)
+    }
+}
+
+export default Person //将Person匿名导出
+
+import Person from '上面文件路径'
+```
+
+
 
 ## for in 对比 for of
 

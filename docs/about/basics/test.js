@@ -314,15 +314,49 @@
 
 
 //let Promise = require('./myPromise');
+//
+//
+// let p = new Promise(function (resolve,reject) {
+//     resolve()
+// });
+//
+// p.then(function () {
+//     console.log('111');
+//     return 1000;
+// }).then(function (data) {
+//     console.log('222',data)
+// });
+//
+//
+// let p = new Promise(function (resolve,reject) {
+//     resolve()
+// });
+//
+// p.then(function () {
+//     console.log('111');
+//     return 1000;
+// }).then(function (data) {
+//     console.log('222',data)
+// });
 
 
-let p = new Promise(function (resolve,reject) {
-    resolve()
-});
+// async function async1(){
+//     console.log('fn start')
+//     await async2()
+//     //await后面当作异步代码来执行
+//     console.log('fn end')
+// }
+//
+// console.log('script start');
+// async1();
+// console.log('script end');
+//
+// async function async2(){
+//     console.log('async2')
+// }
 
-p.then(function () {
-    console.log('111');
-    return 1000;
-}).then(function (data) {
-    console.log('222',data)
-});
+
+
+const a = f();
+console.log(a)
+
