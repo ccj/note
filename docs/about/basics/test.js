@@ -355,8 +355,24 @@
 //     console.log('async2')
 // }
 
+let p1 = new Promise((resolve, reject) => {
+    setTimeout(function () {
+        reject('成功了')
+    },500)
+})
 
+let p2 = new Promise((resolve, reject) => {
+    setTimeout(function () {
+        reject('success')
+    },1000)
+})
 
-const a = f();
-console.log(a)
+let p3 = Promise.reject('失败')
+
+Promise.race([p1, p2]).then((result) => {
+    console.log(result)               //['成功了', 'success']
+}).catch((error) => {
+    console.log('err',error)
+})
+
 

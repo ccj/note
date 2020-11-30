@@ -351,3 +351,59 @@ async function fn(){
     console.log(c) 
 })()
 ```
+
+
+## promise.all()
+
+Promise.all获得的成功结果的数组里面的数据顺序和Promise.all接收到的数组顺序是一致的即p1的结果在前，即便p1的结果获取的比p2要晚。这带来了一个绝大的好处：在前端开发请求数据的过程中，偶尔会遇到发送多个请求并根据请求顺序获取和使用数据的场景，使用Promise.all毫无疑问可以解决这个问题。
+                                              
+                                              
+- 处理多个promise的状态，当p1，p2都成功时，返回的是 [p1,p2].
+- 当p1,p2有一个失败时候，走的是catch 方法，返回的值是第一个reject的值。
+
+```angular2html
+let p1 = new Promise((resolve, reject) => {
+    resolve('成功了')
+})
+
+let p2 = new Promise((resolve, reject) => {
+    resolve('success')
+})
+
+let p3 = Promise.reject('失败')
+
+Promise.all([p1, p2]).then((result) => {
+    console.log(result)               //['成功了', 'success']
+}).catch((error) => {
+    console.log('err',error)
+})
+```
+
+
+## Promise.race()
+
+Promse.race就是赛跑的意思，意思就是说，Promise.race([p1, p2, p3])里面哪个结果获得的快，就返回那个结果，不管结果本身是成功状态还是失败状态。
+
+
+```angular2html
+
+
+let p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('success')
+  },1000)
+})
+
+let p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject('failed')
+  }, 500)
+})
+
+Promise.race([p1, p2]).then((result) => {
+  console.log(result)
+}).catch((error) => {
+  console.log(error)  // 打开的是 'failed'
+})
+
+```
