@@ -391,9 +391,21 @@ import Person from '上面文件路径'
 ```
 
 
+## 对使用Saas的理解
+
+- 父选择器 &
+- 支持嵌套书写
+- 可以使用变量$
+
+## 小程序 navigateTo()和redirectTo()用法和区别
+
+- navigateTo 路由跳转
+- A页面 redirectTo B页面，会把A在历史记录栈里清掉，在跳转到B页面。
 
 ## for in 对比 for of
 
 ### for-in 是为普通对象设计的
 
 ### for-of 遍历数组更加方便
+
+

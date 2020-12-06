@@ -354,25 +354,126 @@
 // async function async2(){
 //     console.log('async2')
 // }
+//
+// let p1 = new Promise((resolve, reject) => {
+//     setTimeout(function () {
+//         reject('成功了')
+//     },500)
+// })
+//
+// let p2 = new Promise((resolve, reject) => {
+//     setTimeout(function () {
+//         reject('success')
+//     },1000)
+// })
+//
+// let p3 = Promise.reject('失败')
+//
+// Promise.race([p1, p2]).then((result) => {
+//     console.log(result)               //['成功了', 'success']
+// }).catch((error) => {
+//     console.log('err',error)
+// })
 
-let p1 = new Promise((resolve, reject) => {
-    setTimeout(function () {
-        reject('成功了')
-    },500)
-})
-
-let p2 = new Promise((resolve, reject) => {
-    setTimeout(function () {
-        reject('success')
-    },1000)
-})
-
-let p3 = Promise.reject('失败')
-
-Promise.race([p1, p2]).then((result) => {
-    console.log(result)               //['成功了', 'success']
-}).catch((error) => {
-    console.log('err',error)
-})
+// Function.prototype.apply1 = function () {
+//     let args = Array.prototype.slice.call(arguments);
+//     let start= args.shift();
+//     self = this;
+//     start.fn = this;
+//     start.fn(args)
+//
+// }
+//
+//
+// function a(content) {
+//     console.log(content)
+// }
+//
+// console.log(a.apply1({name:'kira'},1))
 
 
+// class EmitBus {
+//     constructor() {
+//         this.callbacks = {}
+//     }
+//
+//     on(key,fn){
+//         console.log('this.callbacks.hasOwnProperty(key)',this.callbacks.hasOwnProperty(key))
+//         this.callbacks[key] = this.callbacks[key] || []
+//         this.callbacks[key].push = fn;
+//        console.log('---',this.callbacks)
+//     }
+//
+//     emit(key,val){
+//         if(this.callbacks.hasOwnProperty(key)){
+//            this.callbacks[key].forEach((fn)=>{ fn()})
+//         }
+//     }
+// }
+//
+// let emitBus = new EmitBus();
+//
+//
+// emitBus.on('code',function () {
+//     console.log('dododo')
+// })
+//
+// emitBus.on('code',function () {
+//     console.log('dododo2')
+// })
+//
+// emitBus.emit('code','-----')
+//
+//
+//
+// const dd = {a:'111'}
+// console.log(dd.hasOwnProperty('a'))
+//
+//
+// const set = new Set([1,2,3,4])
+// const map = new Map;
+// map.set('name','kira')
+// console.log(map)
+
+
+
+var twoSum = function(nums, target) {
+    for(let i=0;i<nums.length;i++){
+        let item1 = nums[i];
+        for(let j=i+1;j<nums.length;j++){
+            let item2 = nums[j]
+            if(item1 + item2 === target){
+                return [nums[i],nums[j]]
+            }
+        }
+    }
+
+};
+
+// var twoSum = function(nums, target) {
+//     let temp = []
+//     for (let i = 0; i < nums.length; i++) {
+//         let dif = target-nums[i]
+//         if (temp[dif] !== undefined) {
+//             return [temp[dif], i]
+//         }
+//         temp[nums[i]] = i;
+//     }
+// };
+
+
+var  twoSum = function(nums,target){
+    let temp = []
+
+    for(let i=0;i<nums.length;i++){
+        let diff = target = nums[i]
+        if (temp[diff] !== undefined) {
+            return [temp[diff], i]
+        }
+        temp[nums[i]] = i;
+    }
+
+    return temp
+}
+
+console.log(twoSum([2,7,11,15],9))
