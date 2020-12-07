@@ -437,18 +437,18 @@
 
 
 
-var twoSum = function(nums, target) {
-    for(let i=0;i<nums.length;i++){
-        let item1 = nums[i];
-        for(let j=i+1;j<nums.length;j++){
-            let item2 = nums[j]
-            if(item1 + item2 === target){
-                return [nums[i],nums[j]]
-            }
-        }
-    }
+// var twoSum = function(nums, target) {
+//     for(let i=0;i<nums.length;i++){
+//         let item1 = nums[i];
+//         for(let j=i+1;j<nums.length;j++){
+//             let item2 = nums[j]
+//             if(item1 + item2 === target){
+//                 return [nums[i],nums[j]]
+//             }
+//         }
+//     }
 
-};
+// };
 
 // var twoSum = function(nums, target) {
 //     let temp = []
@@ -462,18 +462,36 @@ var twoSum = function(nums, target) {
 // };
 
 
-var  twoSum = function(nums,target){
-    let temp = []
+// var  twoSum = function(nums,target){
+//     let temp = []
 
-    for(let i=0;i<nums.length;i++){
-        let diff = target = nums[i]
-        if (temp[diff] !== undefined) {
-            return [temp[diff], i]
+//     for(let i=0;i<nums.length;i++){
+//         let diff = target = nums[i]
+//         if (temp[diff] !== undefined) {
+//             return [temp[diff], i]
+//         }
+//         temp[nums[i]] = i;
+//     }
+
+//     return temp
+// }
+
+// console.log(twoSum([2,7,11,15],9))
+
+
+let a = { a: {age:25}, b: 2, c: {}}
+let b = { c: 3, a: { name: 'kira' },f: {} };
+
+
+function mergeDeep(a,b) {
+    for (key in b) {
+        if (a[key] && a[key].toString() === '[object Object]' ) {
+            mergeDeep(a[key],b[key])
+        } else { 
+            a[key] = b[key];
         }
-        temp[nums[i]] = i;
     }
-
-    return temp
 }
 
-console.log(twoSum([2,7,11,15],9))
+mergeDeep(a, b)
+console.log('----a',a)

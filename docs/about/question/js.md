@@ -10,10 +10,28 @@ JavaScript 语言居然有两个表示"无"的值：undefined 和 null。
 - undefined 是一个表示"无"的原始值，转为数值时为 NaN。
   // Number(undefined)
 
+## js var a = b = c = 10问题？
+
+```angular2html
+
+ function fn(){
+    var a = b = c = 10;  
+    // 相当于 var a= 10;    b=10;（在全局var b = underfind,在函数内 b=10）   c=10;（在全局var c = underfind,在函数内 c=10)
+    
+ }
+ fn()
+ console.log(a) // 报错 a is not defind,因为a是在函数作用定义的。
+ console.log(b) // 打印结果10
+ console.log(c) // 打印结果10
+ // 
+```
+
+
+
 ### null 和 underfind 目前的用法
 
 null 表示"没有对象"，即该处不应该有值。
-undefined 表示"缺少值"，就是此处应该有一个值，但是还没有定义。 
+undefined 表示"缺少值"，就是此处应该有一个值，但是还没有定义。
 
 - 1 变量被声明了，但没有赋值时，就等于 undefined。
 - 2 调用函数时，应该提供的参数没有提供，该参数等于 undefined。
@@ -64,23 +82,29 @@ typeof null //object
 1:解决子元素浮动父元素高度塌陷的问题
 ```
 
-## 1px不精准问题？
+## 1px 不精准问题？
 
-现象，在高清屏下，移动端的1px 会很粗。
-### 为什么会出现1px不精准？
-DPR(devicePixelRatio) 设备像素比，它是默认缩放为100%的情况下，设备像素和CSS像素的比值。
+现象，在高清屏下，移动端的 1px 会很粗。
 
-目前主流的屏幕DPR=2 （iPhone 8）,或者3 （iPhone 8 Plus）。拿2倍屏来说，设备的物理像素要实现1像素，而DPR=2，所以css 像素只能是 0.5。一般设计稿是按照750来设计的，它上面的1px是以750来参照的，而我们写css样式是以设备375为参照的，所以我们应该写的0.5px就好了啊！ 试过了就知道，iOS 8+系统支持，安卓系统不支持。
+### 为什么会出现 1px 不精准？
 
-- window.devicePixelRatio=物理像素 /CSS像素
-### 方法1 通过border-img
+DPR(devicePixelRatio) 设备像素比，它是默认缩放为 100%的情况下，设备像素和 CSS 像素的比值。
+
+目前主流的屏幕 DPR=2 （iPhone 8）,或者 3 （iPhone 8 Plus）。拿 2 倍屏来说，设备的物理像素要实现 1 像素，而 DPR=2，所以 css 像素只能是 0.5。一般设计稿是按照 750 来设计的，它上面的 1px 是以 750 来参照的，而我们写 css 样式是以设备 375 为参照的，所以我们应该写的 0.5px 就好了啊！ 试过了就知道，iOS 8+系统支持，安卓系统不支持。
+
+- window.devicePixelRatio=物理像素 /CSS 像素
+
+### 方法 1 通过 border-img
+
 ```angular2
   border: 1px solid transparent;
   border-image: url('./../../image/96.jpg') 2 repeat;
 ```
-### 方法2 使用box-shadow实现
+
+### 方法 2 使用 box-shadow 实现
 
 仔细看,能看出这是阴影不是边框。
+
 ```angular2
 box-shadow: x偏移量 y偏移量 偏移半径 颜色;
 box-shadow: 0  -1px 1px -1px #e5e5e5,   //上边线
@@ -88,7 +112,8 @@ box-shadow: 0  -1px 1px -1px #e5e5e5,   //上边线
             0  1px  1px -1px #e5e5e5,   //下边线
             -1px 0  1px -1px #e5e5e5;   //左边线
 ```
-### 方法3 在伪元素中定位，通过transform缩放
+
+### 方法 3 在伪元素中定位，通过 transform 缩放
 
 ```angular2
 setOnePx{
@@ -107,7 +132,8 @@ setOnePx{
 }
 ```
 
-### 设置viewport的scale值
+### 设置 viewport 的 scale 值
+
 ```angular2
 <meta name="viewport" id="WebViewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 <script>
@@ -128,19 +154,20 @@ setOnePx{
       </script>
 ```
 
-
 ## 前端性能监控？
-- 通过performance API 包含了页面加载的各个阶段的起始时间
+
+- 通过 performance API 包含了页面加载的各个阶段的起始时间
 - window.performance
 
-- 打印window.performance.timing
+- 打印 window.performance.timing
+
 ```angular2
     timing: {
         navigationStart: 同一个浏览器上一个页面卸载(unload)结束时的时间戳。如果没有上一个页面，这个值会和fetchStart相同。
         unloadEventStart: 上一个页面unload事件抛出时的时间戳。如果没有上一个页面，这个值会返回0。
         unloadEventEnd: 和 unloadEventStart 相对应，unload事件处理完成时的时间戳。如果没有上一个页面,这个值会返回0。
         redirectStart: 第一个HTTP重定向开始时的时间戳。如果没有重定向，或者重定向中的一个不同源，这个值会返回0。
-        redirectEnd: 最后一个HTTP重定向完成时（也就是说是HTTP响应的最后一个比特直接被收到的时间）的时间戳。如果没有重定向，或者重定向中的一个不同源，这个值会返回0. 
+        redirectEnd: 最后一个HTTP重定向完成时（也就是说是HTTP响应的最后一个比特直接被收到的时间）的时间戳。如果没有重定向，或者重定向中的一个不同源，这个值会返回0.
         fetchStart: 浏览器准备好使用HTTP请求来获取(fetch)文档的时间戳。这个时间点会在检查任何应用缓存之前。
         domainLookupStart: DNS 域名查询开始的UNIX时间戳,如果使用了持续连接(persistent connection)，或者这个信息存储到了缓存或者本地资源上，这个值将和fetchStart一致。
         domainLookupEnd: DNS 域名查询完成的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等
@@ -159,6 +186,7 @@ setOnePx{
         loadEventEnd: 当load事件结束，即加载事件完成时的时间戳。如果这个事件还未被发送，或者尚未完成，它的值将会是0。
 }
 ```
+
 ```angular2
 // 重定向耗时
 redirect: timing.redirectEnd - timing.redirectStart,
@@ -177,28 +205,6 @@ time: new Date().getTime(),
 <script>
     let whiteScreen = new Date() - performance.timing.navigationStart
 </script>
-```
-
-
-## Oject.assign 的浅拷贝问题？
-
-Object.assign 只能拷贝第一层。
-
-```
-let a = {a:1,b:2}
-let b= {c:3,d:{name:'kira'}};
-
-let obj = Object.assign({},a,b);
-console.log(obj);
-//{ a: 1, b: 2, c: 3, d: { name: 'kira' } }
-
-a.a = 66;
-console.log(obj); //修改a发现obj并没有被改变。
-// { a: 1, b: 2, c: 3, d: { name: 'kira' } }
-b.d.name = 'test';
-console.log(obj);//修改name时候，发现obj被改变了。
-//{ a: 1, b: 2, c: 3, d: { name: 'test' } }
-c
 ```
 
 ## js 实现一个单例模式
@@ -247,8 +253,7 @@ function animate()
 animate();
 ```
 
-
-## AMD和CMD的区别？
+## AMD 和 CMD 的区别？
 
 - AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。
 - CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。
@@ -257,6 +262,7 @@ animate();
 - 2 CMD 推崇依赖就近，AMD 推崇依赖前置。
 
 ## DocumentFragement VS Document
+
 for in 对比 for of
 
 - 区别:DocumentFragment 不是真实 DOM 树的一部分，它的变化不会触发 DOM 树的重新渲染，且不会导致性能等问题。
@@ -350,13 +356,12 @@ new的过程
 2把a的原型链指向Object
 ```
 
-## js模块的导出和引入
+## js 模块的导出和引入
 
-- 1 在js模块中通过import导入其他文件import xxx from '路径地址'
-- 2 导出分为两种导出方式export和export default
+- 1 在 js 模块中通过 import 导入其他文件 import xxx from '路径地址'
+- 2 导出分为两种导出方式 export 和 export default
 
-export具名导出
-
+export 具名导出
 
 ```angular2
 //文件1
@@ -375,6 +380,7 @@ import {name,fun} from '第一个js文件路径'
 export default（匿名导出）
 
 匿名导出只能导出一次。
+
 ```angular2
 class Person{
     constructor(name){
@@ -390,22 +396,19 @@ export default Person //将Person匿名导出
 import Person from '上面文件路径'
 ```
 
-
-## 对使用Saas的理解
+## 对使用 Saas 的理解
 
 - 父选择器 &
 - 支持嵌套书写
-- 可以使用变量$
+- 可以使用变量\$
 
-## 小程序 navigateTo()和redirectTo()用法和区别
+## 小程序 navigateTo()和 redirectTo()用法和区别
 
 - navigateTo 路由跳转
-- A页面 redirectTo B页面，会把A在历史记录栈里清掉，在跳转到B页面。
+- A 页面 redirectTo B 页面，会把 A 在历史记录栈里清掉，在跳转到 B 页面。
 
 ## for in 对比 for of
 
 ### for-in 是为普通对象设计的
 
 ### for-of 遍历数组更加方便
-
-

@@ -45,8 +45,21 @@
     <div style="width: 200px;height: 200px;border: 2px solid #cccccc;background: red;overflow:hidden;position: relative">
     <img style="width: 100px;height: 100px;position: absolute;z-index: -1" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606558804985&di=02d19a392762411fa44f65b3fd08295e&imgtype=0&src=http%3A%2F%2Fpic8.nipic.com%2F20100720%2F3650425_110105686549_2.jpg" alt="">
 </div>
-
+<div id="shadow"></div>
 <input type="text" id="input1">
+
+<script type="text/javascript">
+        let shadowDOM =shadow.attachShadow({mode:'closed'})
+    let pElem = document.createElement('p')
+    pElem.innerText= '123'
+    let styleElem = document.createElement('style')
+    styleElem.textContent = `p{color:red}`
+    shadowDOM.appendChild(styleElem)
+    shadowDOM.appendChild(pElem)
+
+    document.body.appendChild(pElem)
+</script>
+
 <!--<script>-->
 <!--    const input = document.getElementById('input1');-->
 
