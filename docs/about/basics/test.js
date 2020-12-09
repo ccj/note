@@ -478,20 +478,37 @@
 
 // console.log(twoSum([2,7,11,15],9))
 
+//
+// let a = { a: {age:25}, b: 2, c: {}}
+// let b = { c: 3, a: { name: 'kira' },f: {} };
+//
+//
+// function mergeDeep(a,b) {
+//     for (key in b) {
+//         if (a[key] && a[key].toString() === '[object Object]' ) {
+//             mergeDeep(a[key],b[key])
+//         } else {
+//             a[key] = b[key];
+//         }
+//     }
+// }
+//
+// mergeDeep(a, b)
+// console.log('----a',a)
 
-let a = { a: {age:25}, b: 2, c: {}}
-let b = { c: 3, a: { name: 'kira' },f: {} };
 
 
-function mergeDeep(a,b) {
-    for (key in b) {
-        if (a[key] && a[key].toString() === '[object Object]' ) {
-            mergeDeep(a[key],b[key])
-        } else { 
-            a[key] = b[key];
-        }
-    }
-}
+let arr = [
+    { id:8,obj:'88'},
+    { id:3,obj:'33'},
+    { id:4,obj:'44'},
+    { id:7,obj:'77'}]
 
-mergeDeep(a, b)
-console.log('----a',a)
+arr.sort(function (a,b) {
+    console.log('----a',a.id)
+    console.log('----b',b)
+    return b.id- a.id;
+})
+console.log(arr)
+
+
