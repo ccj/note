@@ -497,18 +497,68 @@
 // console.log('----a',a)
 
 
+//
+// let arr = [
+//     { id:8,obj:'88'},
+//     { id:3,obj:'33'},
+//     { id:4,obj:'44'},
+//     { id:7,obj:'77'}]
+//
+// arr.sort(function (a,b) {
+//     console.log('----a',a.id)
+//     console.log('----b',b)
+//     return b.id- a.id;
+// })
+// console.log(arr)
+// let m = Object.create({},{name:'111'});
+// let n = {};
+//
+// console.log(m instanceof Object)
+// console.log(n instanceof Object)
 
-let arr = [
-    { id:8,obj:'88'},
-    { id:3,obj:'33'},
-    { id:4,obj:'44'},
-    { id:7,obj:'77'}]
-
-arr.sort(function (a,b) {
-    console.log('----a',a.id)
-    console.log('----b',b)
-    return b.id- a.id;
-})
-console.log(arr)
+// myNew()
+// function myNew() {
+//     var object = {} // 1 创建个空对象
+//     let args= Array.prototype.slice.call(arguments);
+//     console.log(args)
+//
+// }
 
 
+// let p1 = new Promise((resolve, reject) => {
+//     resolve('成功了')
+// })
+//
+// let p2 = new Promise((resolve, reject) => {
+//     resolve('success')
+// })
+//
+// let p3 = Promise.reject('失败')
+//
+// Promise.race([p1, p2]).then((result) => {
+//     console.log(result)               //['成功了', 'success']
+// }).catch((error) => {
+//     console.log('err',error)
+// })
+
+
+var obj = {
+    a:'111',
+    b:'222'
+}
+
+var myObj = Object.create(obj,{'info':{value:'ggg'},'info1':{value:'ggg2'}})
+console.log(myObj)
+
+
+
+function F() {
+
+}
+
+F.prototype = function () {
+    console.log('111')
+}
+
+let f = new F();
+console.log(f.__pr)

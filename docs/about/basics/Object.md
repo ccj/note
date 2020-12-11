@@ -1,5 +1,47 @@
 # Object
 
+
+## Object.create
+
+
+Object.create 创建一个对象并把这个对象的 [[Prototype]] 关联到指定的对象。
+
+Object.create(proto, [propertiesObject])
+
+- proto : 必须。表示新建对象的原型对象，该参数可以是null， 对象， 函数的prototype属性 （创建空的对象时需传null , 否则会抛出TypeError异常）。
+- propertiesObject :  添加到新创建对象的可枚举属性。
+
+```angular2html
+let a = Object.create({name:'kira',info:{value:'111'}})
+
+console.log(a) //{info:'111'}
+console.log(a.__proto__) //打印结果{name:'kira'}
+console.log(a.__proto__.__proto__) //打印结果是Object的内容
+
+
+
+
+
+```
+### Object.create 和 {} 区别
+
+- Object.create自定义自己的原型
+- Object.create(null); //{} 没有原型
+
+```angular2html
+let a = {}
+console.log(a);// {}
+consloe.log(a.__proto__)//打印的是Object的内容 
+```
+
+```$xslt
+var anotherObject = { a:2};
+// 创建一个关联到 anotherObject 的对象
+var myObject = Object.create( anotherObject );
+myObject.a; // 2 实际上就是把a:2 挂载到了myObject上
+```
+
+
 ## Object.assign 的用法
 
 Object.assign 可以实现对象的合并。Object.assign(target, ...sources)
@@ -54,6 +96,9 @@ b.d.name = 'test';
 console.log(obj);//修改name时候，发现obj被改变了。
 //{ a: 1, b: 2, c: 3, d: { name: 'test' } }
 c
+
+
+
 ```
 
 ### 深拷贝实现 merge
@@ -78,3 +123,25 @@ mergeDeep(a, b)
 console.log('----a',a)
 
 ```
+
+### 什么是浅拷贝
+
+新建一个对象，这个对象有原始对象属性值的一份精确拷贝。
+
+**<font color="red">浅拷贝只拷贝一层，如果属性是基本数据类型就拷贝值。如果属性是引用类型就拷贝地址。</font>**
+
+
+```angular2html
+let a = {name:'kira',info:{age:25}}
+let b = Object.assign({},a)
+a.name = '123'
+a.info.age = 23
+console.log(a) //{name:'123',info:{age:23}}
+console.log(b)//{name:'kira',info:{age:23}}
+
+```
+
+
+
+
+

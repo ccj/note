@@ -350,6 +350,44 @@ async function fn(){
     const c = await Promise.reject(300) //此时会报错因为c是 Promise.resolve()的回调，此时拿不到reject的值，需要使用try catch不然报错。执行不下去了
     console.log(c) 
 })()
+
+
+Promise.resolve().then(() => {
+  return new Error('error!!!')// 会返回一个成功的promise，携带这error
+ }).then((res) => {
+   console.log('then: ', res) // 打印 then:  Error: error!!!
+ }).catch((err) => {
+   console.log('catch: ', err)
+ })
+//变换
+Promise.resolve().then(() => {
+  throw new Error('error!!!')// 
+ }).then((res) => {
+   console.log('then: ', res) 
+ }).catch((err) => {
+   console.log('catch: ', err) // 打印 catch:  Error: error!!!
+ })
+
+
+
+
+
+
+const promise = Promise.resolve().then(() => {
+   return promise 
+ })
+promise.catch(console.error)
+// 执行结果如下：
+// TypeError: Chaining cycle detected for promise #<Promise>
+
+// .then或 .catch返回的值不能是 promise本身，否则会造成死循环。类似于：
+
+process.nextTick(function tick () {
+  console.log('tick')
+  process.nextTick(tick)
+})
+
+
 ```
 
 
@@ -392,7 +430,7 @@ let p1 = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve('success')
   },1000)
-})
+})  
 
 let p2 = new Promise((resolve, reject) => {
   setTimeout(() => {
