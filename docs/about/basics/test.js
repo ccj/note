@@ -542,23 +542,162 @@
 // })
 
 
-var obj = {
-    a:'111',
-    b:'222'
-}
+// var obj = {
+//     a:'111',
+//     b:'222'
+// }
+//
+// var myObj = Object.create(obj,{'info':{value:'ggg'},'info1':{value:'ggg2'}})
+// console.log(myObj)
+//
+//
+//
+// function F() {
+//
+// }
+//
+// F.prototype = function () {
+//     console.log('111')
+// }
+//
+// let f = new F();
+// console.log(f.__pr)
 
-var myObj = Object.create(obj,{'info':{value:'ggg'},'info1':{value:'ggg2'}})
-console.log(myObj)
+
+// let arr = [1,2,5,[64,2,[23,5,2],4],1]
+// let temp =[]
+// function deal(arr) {
+//     for (let i =  0;i<arr.length;i++) {
+//         let item = arr[i]
+//         if (Array.isArray(item)) {
+//             temp = temp.concat(deal(item))
+//         } else {
+//             temp.push(item)
+//         }
+//     }
+//     return temp;
+// }
+// console.log(deal(arr))
+// console.log(arr.flat(2))
 
 
 
-function F() {
 
-}
 
-F.prototype = function () {
-    console.log('111')
-}
 
-let f = new F();
-console.log(f.__pr)
+// var x = 0;
+// var foo = {
+//     x:1,
+//     bar:function () {
+//         var that = this;
+//         console.log('this',this)
+//         return function () {
+//             console.log(this.x)
+//             console.log(that.x)
+//         }
+//     }
+// }
+//
+// foo.bar()() // 0 1
+
+
+
+//构造函数
+
+//
+// function Father() {
+//     this.name = 'father'
+// }
+//
+// function Sun1() {
+//     this.name = 'sun'
+// }
+//
+//
+// Father.prototype.play = function () {
+//     console.log('play===')
+// }
+//
+// Father.play()
+//
+
+
+
+// function Father () {
+//     this.property = true
+// }
+// Father.prototype.getSuperValue = function () {
+//     return this.property
+// }
+// function Sun () {
+//     this.subproperty = false
+// }
+// // 继承了SuperType //
+// Sun.prototype = new Father()
+// Sun.prototype.getSubValue = function () {
+//     return this.subproperty
+// }
+// var instance = new Sun()
+//
+// console.log(instance.subproperty)
+// console.log(instance.property)
+// console.log(instance.getSuperValue())
+
+
+//
+// fs.readFile(function (res) {
+//     if(res){
+//         console.log('success')
+//     }else{console.log('error')
+//
+//     }
+// }).then(function () {
+//
+// }).catch(function () {
+//
+// })
+//
+//
+//
+// util.myRequest = function (fn) {
+//     //
+// }
+//
+//
+//
+//
+// function f() {
+//
+// }
+// let arr = [4,1]
+// for (let i = 0 ;i<arr.length;i++){
+//     console.log(i)
+//     arr.push(i)
+// }
+
+
+//
+// function f() {
+//     let timer = setTimeout(function () {
+//         f()
+//         console.log('111')
+//         clearTimeout(timer)
+//     },2000)
+// }
+//
+// f()
+
+let arr = [1,2,3]
+// for (var i=0;i<arr.length;i++){
+//     console.log(i)
+//     arr.push(i)
+// }
+
+
+arr.map((item)=>{
+    console.log(item)
+    arr.push(item)
+})
+
+
+getel

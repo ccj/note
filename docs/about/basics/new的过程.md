@@ -10,10 +10,12 @@
 2 新对象继承Person.prototype
 3 使用指定的参数调用构造函数 Person ，并将 this 绑定到新创建的对象
 4 返回最初创建的对象
-function _new(fn) {
-    var obj = {}//创建一个新对象
-    obj.[_proto_] = fn.prototype // 新对象继承 Person.prototype
-    fn.call(obj);// 使用指定的参数调用构造函数 Person ，并将 this 绑定到新创建的对象
-    return obj //返回最初创建的对象
+function myNew(Fn,args) {
+    let obj = {};//创建一个空对象
+    if(Fn && typeof Fn === "function"){
+        obj.__proto__ = Fn.prototype;
+        obj.call(Fn,...args);
+        return obj;
+    }
 }
 ```
