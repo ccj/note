@@ -34,10 +34,12 @@ class InjectNativeObject{
 
 ## 在前端bridge调用
 
+- 第一种就是 Native内嵌的H5可以获取到一个全局对象AppBridge。通过该对象就可以调用到Native上对象绑定的方法。
+- 第二种即 **<font color="red"> Android端通过shouldOverrideUrlLoading  </font>** 拦截URL Schema
 
 ```angular2html
 // 注入的对象
-window.AppBridge = window.AppBridge || {}; 
+window.AppBridge = AppBridge || {}; 
 
 // 登录按钮点击，调用注入的openNewPage方法，并传入相应的值
 loginButton.addEventListener("click", function (e) {
@@ -48,8 +50,7 @@ loginButton.addEventListener("click", function (e) {
 
 ## 拦截URL Schema
 
-H5端通过iframe.src或localtion.href发送Url Schema请求，之后Native（Android端通过shouldOverrideUrlLoading()方法）拦截到请求的Url Schema（包括参数等）进行相应的操作。
-
+H5端通过iframe.src或location.href发送Url Schema请求，之后Native（Android端通过shouldOverrideUrlLoading()方法）拦截到请求的Url Schema（包括参数等）进行相应的操作。
 
 H5通过发送一个url请求，Native拦截到请求。客户端可以通过schema来区分是JSBridge调用还是普通的https请求从而做不同的处理。
 
