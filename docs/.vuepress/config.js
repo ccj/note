@@ -122,7 +122,7 @@ function getBasicsSidebar(groupA, groupB, groupC, groupD,groupE, groupF,groupG,g
     {
       title: groupC,
       collapsable: true,
-      children: ['/about/css/盒子模型','/about/css/清除浮动的几种方式','/about/css/BFC介绍和解决的问题']
+      children: ['/about/css/盒子模型','/about/css/scss使用','/about/css/清除浮动的几种方式','/about/css/BFC介绍和解决的问题']
     },
     {
       title: groupD,
