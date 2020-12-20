@@ -448,11 +448,74 @@ export default Person //将Person匿名导出
 import Person from '上面文件路径'
 ```
 
-## 对使用 Saas 的理解
+## 函数提升和变量提升
 
-- 父选择器 &
-- 支持嵌套书写
-- 可以使用变量\$
+- 函数提升优先级高于变量提升，且不会被同名变量声明时覆盖，但是会被变量赋值后覆盖
+
+变量提升
+
+```angular2html
+
+console.log(foo); // undefined
+var foo = 'kira';
+console.log(foo)  // kira
+
+//相当于
+
+var foo
+console.log(foo)
+foo = 'kira'
+console.log(foo
+)
+```
+
+函数提升
+
+```angular2html
+
+function foo () {
+    // to do...
+}
+
+//相当于
+
+var foo = function(){
+    // to do ...
+}
+```
+
+```angular2html
+
+console.log(bar);  // f bar() { console.log(123) }
+console.log(bar()); // undefined
+var bar = 456;
+function bar() {
+    console.log(123); // 123
+}
+console.log(bar); // 456
+bar = 789;
+console.log(bar); // 789
+console.log(bar()) // bar is not a function
+
+//相当于
+
+var bar = function(){
+    console.log(123)
+}
+var bar;
+
+bar = 456;
+
+console.log(bar) // 456
+bar = 789
+console.log(bar) // 789
+console.log(bar()) //bar is not function
+
+
+```
+
+
+
 
 ## 小程序 navigateTo()和 redirectTo()用法和区别
 
