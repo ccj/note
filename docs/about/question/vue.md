@@ -2,8 +2,13 @@
 
 ## v-show && v-if区别？
 
-- v-show通过css的display判断是否显示，不管是否显示DOM已经存在。
-- v-if 是判断节点是否渲染，如果频繁切换不适合使用。
+- v-show通过css的display判断是否显示，不管是否显示DOM已经存在。如果display:none，DOM是存在的。
+- v-show是在任何条件下（首次条件是否为真）都被编译，然后被缓存，而且DOM元素保留；
+- v-if 是判断节点是否渲染，如果频繁切换不适合使用。如果v-if为false，DOM是没有的。
+
+display:none,visible:hidden。DOM都是存在的。
+
+区别是display：none会带来重排重绘。visible只会带来重排。
 
 
 ## 为什么v-for中用key？
