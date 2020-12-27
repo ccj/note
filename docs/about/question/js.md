@@ -527,3 +527,41 @@ console.log(bar()) //bar is not function
 ### for-in 是为普通对象设计的
 
 ### for-of 遍历数组更加方便
+
+
+##  通过url获取参数
+
+```angular2html
+
+function query(name){
+    const search = location.search
+    const params = search.URLSearchParams(search)
+    return params.get(name)
+}
+
+```
+
+
+## 把url参数转为JSON
+
+```angular2html
+
+function queryToJSON(){
+    const json = {}
+    let url= location.search.substr('1')//获取url
+    url.split('&').forEach((item)=>{
+        //分隔每一项
+        const arr = item.split('=')
+        const key = arr[0]
+        const value = arr[1]
+        json[key] = value
+    })
+
+    return json
+}
+query()
+
+```
+
+
+
