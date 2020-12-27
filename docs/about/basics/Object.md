@@ -124,6 +124,34 @@ console.log('----a',a)
 
 ```
 
+
+### 深比较判断两个对象是否相等
+
+```angular2html
+const a = {a:10,b:{c:10,d:20}}
+const b = {a:10,b:{c:10,d:20}}
+//
+function isEqual(a,b) {
+    let result = true ;
+    for (let key in b){
+        if(a[key] === undefined){
+            result = false
+        }
+        if(typeof b[key] == 'object' && b[key]!==null){
+            const res =  isEqual(a[key],b[key])
+            if(res === false) return  false;
+        }else{
+            if (a[key] !== b[key]){
+                result = false
+            }
+        }
+        console.log('11',result)
+    }
+    return result;
+}
+
+```
+
 ### 什么是浅拷贝
 
 新建一个对象，这个对象有原始对象属性值的一份精确拷贝。
@@ -141,6 +169,16 @@ console.log(b)//{name:'kira',info:{age:23}}
 
 ```
 
+### 两个对象之间的比较
+
+```angular2html
+let a = {a:1}
+let b = {a:1}
+let c = new Object(a)
+console.log(a === b) // false 两个对象在堆中的指针地址不同
+
+console.log(a === c) // true 两个对象的指针地址相同
+```
 
 
 
